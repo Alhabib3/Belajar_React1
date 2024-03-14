@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Product</title>
+  <!-- Import React and ReactDOM from CDN -->
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQtwFspd3yD65VohhpuuCOmLASJC" crossorigin="anonymous" />
+  <style>
+    .product-card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 10px;
+      width: 200px;
+      display: inline-block;
+      text-align: center;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { Component } = React;
+
+    class ProductCard extends Component {
+      render() {
+        const { productName, harga, imageUrl } = this.props;
+        return (
+          <div className="product-card">
+            <img src={imageUrl} alt={productName} />
+            <h3>{productName}</h3>
+            <p>harga: Rp{harga}</p>
+          </div>
+        );
+      }
+    }
+
+    // Main App Component
+    class App extends Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          products: [
+            { productName: 'Sepatu', harga: 200000, imageUrl: 'https://cf.shopee.co.id/file/436fd1fddc0cd01bf8c22c226c543f8d' },
+            { productName: 'Laptop gaming', harga: 16000000, imageUrl: 'https://th.bing.com/th/id/OIP.PQ8aDuRn7QTeHL0VL-vkUgHaHa?rs=1&pid=ImgDetMain' },
+            { productName: 'Mobil Lamborghini' , harga: 250000000, imageUrl: 'https://th.bing.com/th/id/OIP.ic7Rh1eLd4PmCxg8voSWUAHaE8?w=4000&h=2667&rs=1&pid=ImgDetMain'}
+          ]
+        };
+      }
+      render() {
+        return (
+          <div>
+            <h1>Product Catalog</h1>
+            {this.state.products.map((product, index) => (
+              <ProductCard key={index} {...product} />
+            ))}
+          </div>
+        );
+      }
+    }
+
+    // Render App component inside root div
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
